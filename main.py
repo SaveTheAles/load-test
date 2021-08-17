@@ -1,12 +1,32 @@
-import time
-from methods import generate_links_set, generate_txs, broadcast
-from config import SLEEP_TIME
+from src._minion import Minion
+from config import MINIONS, FRIENDS, CHARACTER
+from cyberpy import seed_to_privkey, privkey_to_address
+from multiprocessing import Process
+from run_bot import run_bot
 
-while True:
-    start_time = time.time()
-    txs = generate_txs(generate_links_set())
-    broadcast(txs)
-    end_time = time.time()
-    time_taken = end_time - start_time
-    print(" Time taken in seconds: {} s".format(time_taken))
-    time.sleep(SLEEP_TIME)
+def main():
+    minions = []
+    procs = []
+
+    for seed in MINIONS:
+        name = FRIENDS[privkey_to_address(seed_to_privkey(seed))]
+        friends = {k: FRIENDS[k] for k in FRIENDS.keys() - {privkey_to_address(seed_to_privkey(seed))}}
+        minion = Minion(seed=seed, character=CHARACTER, friends=friends, name=name)
+        minions.append(minion)
+
+    for minion in minions:
+        proc = Process(target=run_bot, args=(minion,))
+        procs.append(proc)
+    try:
+        for proc in procs:
+            proc.start()
+
+        for proc in procs:
+            proc.join()
+
+    except KeyboardInterrupt:
+        for proc in procs:
+            proc.terminate()
+
+if __name__ == '__main__':
+    main()

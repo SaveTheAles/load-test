@@ -1,13 +1,48 @@
-ACCOUNTS = ['put seed phrase here',
-            'put seed phrase here',
-            'put seed phrase here']
+from cyberpy import seed_to_privkey, privkey_to_address
 
-LINKS_IN_BLOCK = 100
+LCD_API = 'http://lcd_api' 
+RPC_API = 'http://rpc_api'
+HERO = 'your hero name'
+MSGS = 25
 
-LINK_SET = round((len(ACCOUNTS) * LINKS_IN_BLOCK) / 5)
+CHAIN_ID = 'bostrom-testnet-4'
+SYNC_MODE = 'broadcast_tx_sync'
 
-CHAIN_ID = 'chain-id'
+TYPE = {
+    "cyberlinker": 90,
+    "crosslinker": 5,
+    "invalid_cyberlinker": 2,
+    "sender": 3
+}
 
-LCD_API = 'https://'
+# MAX 8
+MINIONS = ['bot1 seed phrase here',
+           'bot2 seed phrase here',
+           'bot3 seed phrase here',
+           'bot4 seed phrase here',
+           'bot5 seed phrase here',
+           'bot6 seed phrase here',
+           'bot7 seed phrase here',
+           'bot8 seed phrase here'
+           ]
 
-SLEEP_TIME = 5 # seconds
+
+# ----------------------------------------------------------
+# ------------------ DO NOT TOUCH SECTION ------------------
+# ----------------------------------------------------------
+
+CIDS_COUNT = 6
+NAMES = ['Alex', 'Bob', 'Carl', 'Daniel', 'Egor', 'Francis', 'Gerald', 'Harry', 'Igor', 'Jackob']
+FRIENDS = {privkey_to_address(seed_to_privkey(minion)): name for minion, name in zip(MINIONS, NAMES)}
+CHARACTER = ['cyberlink'] * (TYPE['cyberlinker'] * 100) + \
+            ['crosslink'] * (TYPE['crosslinker'] * 100) + \
+            ['invalid_cyberlink'] * (TYPE['invalid_cyberlinker'] * 100) + \
+            ['send'] * (TYPE['sender'] * 100)
+            # ['delegate'] * (TYPE['delegator'] * 100) + \
+            # ['undelegate'] * (TYPE['undelegator'] * 100) + \
+            # ['redelegate'] * (TYPE['redelegator'] * 100) + \
+            # ['withdraw'] * (TYPE['withdrawer'] * 100)
+
+
+if MSGS > 25:
+    MSGS = 25
