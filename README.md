@@ -15,8 +15,8 @@ pip3 install -r requirements.txt
 General info:
 
 ```python
-LCD_API = '' # the LCD API endpoint without '/' in the end of string, on port 26657 by default
-RPC_API = '' # the RPC API endpoint without '/' in the end of string, on port 1317 by default
+LCD_API = '' # the LCD API endpoint without '/' in the end of string, on port 1317 by default
+RPC_API = '' # the RPC API endpoint without '/' in the end of string, on port 26657 by default
 HERO = '' # your hero moniker
 MSGS = 25 # the amount of links in one transaction (max 25)
 ```
