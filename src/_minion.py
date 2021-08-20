@@ -33,9 +33,9 @@ class Minion:
     def cyberlink(self):
         tx = get_transaction(self.privkey, memo=f"load test, hero={HERO}, action=cyberlink")
         links_set = generate_links_set()
+        links_set = list(links_set.itertuples(index=False, name=None))
         links_set = links_set[:MSGS]
-        for index, row in links_set.iterrows():
-            tx.add_cyberlink(cid_from=row['object_from'], cid_to=row['object_to'])
+        tx.add_chain_cyberlink(links_set)
         res = tx.broadcast(url=RPC_API)
         print_output(self.name, self.cyberlink, res)
 

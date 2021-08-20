@@ -38,11 +38,11 @@ def get_validators(address):
 
 def get_balance(address):
     balances = requests.get(LCD_API + '/cosmos/bank/v1beta1/balances/' + address).json()['balances']
-    boot = list(filter(lambda denom: denom['denom'] == 'mamper', balances))[0]
-    return int(boot['amount'])
+    amper = list(filter(lambda denom: denom['denom'] == 'mamper', balances))[0]
+    return int(amper['amount'])
 
 
-def get_transaction(privkey, memo, gas=2_000_000, fee=0):
+def get_transaction(privkey, memo, gas=5_000_000, fee=0):
     _account_number, _sequence = get_account_data(privkey_to_address(privkey))
     return Transaction(
         privkey=privkey,
