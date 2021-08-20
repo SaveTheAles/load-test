@@ -53,7 +53,7 @@ class Minion:
         links_set = links_set[:MSGS]
         tx.add_chain_cyberlink(links_set)
         res = tx.broadcast(url=RPC_API)
-        print_output(self.name, self.cyberlink, res)
+        print_output(self.name, self.crosslink, res)
 
     # def delegate(self):
     #     tx = get_transaction(self.privkey)
