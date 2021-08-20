@@ -49,10 +49,11 @@ class Minion:
     def crosslink(self):
         tx = get_transaction(self.privkey, memo=f"load test, hero={HERO}, action=crosslink")
         links_set = get_cross_link(self.privkey)
-        for index, row in links_set.iterrows():
-            tx.add_cyberlink(cid_from=row['object_from'], cid_to=row['object_to'])
+        links_set = list(links_set.itertuples(index=False, name=None))
+        links_set = links_set[:MSGS]
+        tx.add_chain_cyberlink(links_set)
         res = tx.broadcast(url=RPC_API)
-        print_output(self.name, self.crosslink, res)
+        print_output(self.name, self.cyberlink, res)
 
     # def delegate(self):
     #     tx = get_transaction(self.privkey)
