@@ -4,7 +4,9 @@ import pandas as pd
 import requests
 import random
 
-from config import CIDS_COUNT, LCD_API
+from itertools import permutations
+from config import CIDS_COUNT, LCD_API, MSGS
+from cyberpy import privkey_to_address
 
 
 def get_random_hash():
@@ -46,12 +48,26 @@ def get_double_link(address):
     return link['from'], link['to']
 
 
-def get_cross_link(friends: dict):
-    friend = random.choice(list(friends))
-    res = requests.get(LCD_API + f'/txs?message.action=cyberlink&cybermeta.subject={friend}&limit=1').json()
-    random_link = random.randint(1, int(res['total_count']))
-    cross_tx = requests.get(LCD_API + f'/txs?message.action=cyberlink&cybermeta.subject={friend}&page={random_link}&limit=1').json()
-    tx = cross_tx['txs'][0]
-    object_from = [x['value']['links'][0]['from'] for x in tx['tx']['value']['msg']]
-    object_to = [x['value']['links'][0]['to'] for x in tx['tx']['value']['msg']]
-    return pd.DataFrame(list(zip(object_from, object_to)), columns=['object_from', 'object_to'])
+def get_cross_link(privkey):
+    address = privkey_to_address(privkey)
+    block = int(requests.get(LCD_API + f'/blocks/latest').json()['block']['header']['height'])
+    txs = requests.get(LCD_API + f'/txs?message.action=cyberlink&limit=10&tx.minheight={block - 100}').json()['txs']
+    cleaned_txs = [tx for tx in txs if tx['logs'][0]['events'][1]['attributes'][0]['value'] != address]
+    exctracted_cid = []
+    for tx in cleaned_txs:
+        exctracted_cid.extend(extract_cid(tx))
+    exctracted_cid = list(set(exctracted_cid))
+    perm = list(permutations(exctracted_cid, 2))
+    random_choice = random.choices(perm, k=MSGS)
+    return pd.DataFrame(random_choice, columns=['object_from', 'object_to'])
+
+
+def extract_cid(tx):
+    msgs = tx['tx']['value']['msg']
+    objects = []
+    for msg in msgs:
+        links = msg['value']['links']
+        for link in links:
+            objects.append(link['from'])
+            objects.append(link['to'])
+    return list(set(objects))

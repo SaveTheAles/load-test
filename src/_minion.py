@@ -48,7 +48,7 @@ class Minion:
 
     def crosslink(self):
         tx = get_transaction(self.privkey, memo=f"load test, hero={HERO}, action=crosslink")
-        links_set = get_cross_link(self.friends)
+        links_set = get_cross_link(self.privkey)
         for index, row in links_set.iterrows():
             tx.add_cyberlink(cid_from=row['object_from'], cid_to=row['object_to'])
         res = tx.broadcast(url=RPC_API)

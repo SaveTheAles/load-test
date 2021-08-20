@@ -3,14 +3,14 @@ from cyberpy import seed_to_privkey, privkey_to_address
 LCD_API = 'http://lcd_api' 
 RPC_API = 'http://rpc_api'
 HERO = 'your hero name'
-MSGS = 25
+MSGS = 50
 
 CHAIN_ID = 'bostrom-testnet-4'
 SYNC_MODE = 'broadcast_tx_sync'
 
 TYPE = {
-    "cyberlinker": 90,
-    "crosslinker": 5,
+    "cyberlinker": 50,
+    "crosslinker": 45,
     "invalid_cyberlinker": 2,
     "sender": 3
 }
@@ -31,7 +31,7 @@ MINIONS = ['bot1 seed phrase here',
 # ------------------ DO NOT TOUCH SECTION ------------------
 # ----------------------------------------------------------
 
-CIDS_COUNT = 6
+CIDS_COUNT = 15
 NAMES = ['Alex', 'Bob', 'Carl', 'Daniel', 'Egor', 'Francis', 'Gerald', 'Harry', 'Igor', 'Jackob']
 FRIENDS = {privkey_to_address(seed_to_privkey(minion)): name for minion, name in zip(MINIONS, NAMES)}
 CHARACTER = ['cyberlink'] * (TYPE['cyberlinker'] * 100) + \
@@ -44,5 +44,5 @@ CHARACTER = ['cyberlink'] * (TYPE['cyberlinker'] * 100) + \
             # ['withdraw'] * (TYPE['withdrawer'] * 100)
 
 
-if MSGS > 25:
-    MSGS = 25
+if MSGS > 200:
+    MSGS = 200
