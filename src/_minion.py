@@ -55,32 +55,6 @@ class Minion:
         res = tx.broadcast(url=RPC_API)
         print_output(self.name, self.crosslink, res)
 
-    # def delegate(self):
-    #     tx = get_transaction(self.privkey)
-    #     data = get_delegate_data()
-    #     tx.add_delegation(validator=data[0], amount=data[1])
-    #     res = tx.broadcast(url=LCD_API)
-    #     print('----------------------------------------------------------------------')
-    #     print('Soldier-bot {} made delegation to {} with {} euls, Sir!'.format(self.name, data[0], data[1]))
-    #     print('Height:', res['height'])
-    #     print('Hash:', res['txhash'])
-    #
-    # def redelegate(self):
-    #     print('redelegating by', self.name)
-    #
-    # def undelegate(self):
-    #     print('undelegating by', self.name)
-    #
-    # def withdraw(self):
-    #     tx = get_transaction(self.privkey)
-    #     validator = get_withdraw_validator(self.account)
-    #     tx.add_withdraw(validator=validator)
-    #     res = tx.broadcast(LCD_API=LCD_API)
-    #     print('----------------------------------------------------------------------')
-    #     print('Soldier-bot {} made withdraw, Sir!'.format(self.name))
-    #     print('Height:', res['height'])
-    #     print('Hash:', res['txhash'])
-
     def action(self):
         action = self._chose_action()
         if action == 'cyberlink':
@@ -89,17 +63,9 @@ class Minion:
             self.invalid_cyberlink()
         elif action == 'crosslink':
             self.crosslink()
-        # elif action == 'delegate':
-        #     self.delegate()
-        # elif action == 'redelegate':
-        #     self.redelegate()
-        # elif action == 'undelegate':
-        #     self.undelegate()
-        # elif action == 'withdraw':
-        #     self.withdraw()
         else:
             self.send()
-        sleep(random.randint(5, 10))
+        sleep(random.randint(7, 9))
 
     def _chose_action(self):
         case = random.randint(0, len(self.character) - 1)
