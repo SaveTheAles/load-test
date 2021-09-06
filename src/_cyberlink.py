@@ -38,7 +38,6 @@ def generate_links_set():
     for cid in cid_set:
         object_from.extend([cid] * (len(cid_set) - 1))
         object_to.extend([x for x in cid_set if x not in [cid]])
-    print(len(object_from))
     return pd.DataFrame(list(zip(object_from, object_to)), columns=['object_from', 'object_to'])
 
 
