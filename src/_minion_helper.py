@@ -42,18 +42,31 @@ def get_balance(address):
     return int(amper['amount'])
 
 
-def get_transaction(privkey, memo, gas=3_000_000, fee=0):
-    _account_number, _sequence = get_account_data(privkey_to_address(privkey))
-    return Transaction(
-        privkey=privkey,
-        account_num=_account_number,
-        sequence=_sequence,
-        fee=0,
-        gas=gas,
-        memo=memo,
-        chain_id=CHAIN_ID,
-        sync_mode=SYNC_MODE,
-    )
+def get_transaction(privkey, memo, gas=3_000_000, fee=0, account_number=False, sequence=False):
+    if not account_number or not sequence:
+        _account_number, _sequence = get_account_data(privkey_to_address(privkey))
+        return Transaction(
+            privkey=privkey,
+            account_num=_account_number,
+            sequence=_sequence,
+            fee=fee,
+            gas=gas,
+            memo=memo,
+            chain_id=CHAIN_ID,
+            sync_mode=SYNC_MODE,
+        )
+    else:
+        _account_number, _sequence = account_number, sequence
+        return Transaction(
+            privkey=privkey,
+            account_num=_account_number,
+            sequence=_sequence,
+            fee=0,
+            gas=gas,
+            memo=memo,
+            chain_id=CHAIN_ID,
+            sync_mode=SYNC_MODE,
+        )
 
 
 def print_output(name, function, res):
