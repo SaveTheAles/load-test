@@ -5,7 +5,7 @@ import requests
 import random
 
 from itertools import permutations
-from config import CIDS_COUNT, LCD_API, MSGS
+from config import CIDS_COUNT, LCD_API, CYBERLINKS_IN_TX
 from cyberpy import privkey_to_address
 
 
@@ -38,6 +38,7 @@ def generate_links_set():
     for cid in cid_set:
         object_from.extend([cid] * (len(cid_set) - 1))
         object_to.extend([x for x in cid_set if x not in [cid]])
+    print(len(object_from))
     return pd.DataFrame(list(zip(object_from, object_to)), columns=['object_from', 'object_to'])
 
 
@@ -58,7 +59,7 @@ def get_cross_link(privkey):
         exctracted_cid.extend(extract_cid(tx))
     exctracted_cid = list(set(exctracted_cid))
     perm = list(permutations(exctracted_cid, 2))
-    random_choice = random.choices(perm, k=MSGS)
+    random_choice = random.choices(perm, k=CYBERLINKS_IN_TX)
     return pd.DataFrame(random_choice, columns=['object_from', 'object_to'])
 
 

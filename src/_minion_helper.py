@@ -42,7 +42,7 @@ def get_balance(address):
     return int(amper['amount'])
 
 
-def get_transaction(privkey, memo, gas=3_000_000, fee=0, account_number=False, sequence=False):
+def get_transaction(privkey, memo, gas=80_000, fee=0, account_number=False, sequence=False):
     if not account_number or not sequence:
         _account_number, _sequence = get_account_data(privkey_to_address(privkey))
         return Transaction(
