@@ -51,7 +51,9 @@ def get_double_link(address):
 def get_cross_link(privkey):
     address = privkey_to_address(privkey)
     block = int(requests.get(LCD_API + f'/blocks/latest').json()['block']['header']['height'])
-    txs = requests.get(LCD_API + f'/txs?message.action=cyberlink&limit=10&tx.minheight={block - 100}').json()['txs']
+    url = LCD_API + f'/txs?message.action=cyberlink&limit=10&tx.minheight={block - 100}'
+    # print(url)
+    txs = requests.get(url).json()['txs']
     cleaned_txs = [tx for tx in txs if tx['logs'][0]['events'][1]['attributes'][0]['value'] != address]
     exctracted_cid = []
     for tx in cleaned_txs:
