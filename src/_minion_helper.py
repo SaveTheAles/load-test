@@ -38,7 +38,7 @@ def get_validators(address):
 
 def get_balance(address):
     balances = requests.get(LCD_API + '/cosmos/bank/v1beta1/balances/' + address).json()['balances']
-    amper = list(filter(lambda denom: denom['denom'] == 'mamper', balances))[0]
+    amper = list(filter(lambda denom: denom['denom'] == 'milliampere', balances))[0]
     return int(amper['amount'])
 
 

@@ -25,7 +25,7 @@ class Minion:
     def send(self, account_number, sequence):
         tx = get_transaction(self.privkey, memo=f"load test, hero={HERO}, action=send", account_number=account_number, sequence=sequence, gas=65_000)
         send_data = get_send_data(self.friends)
-        tx.add_transfer(recipient=send_data[0], amount=send_data[1], denom='mamper')
+        tx.add_transfer(recipient=send_data[0], amount=send_data[1], denom='milliampere')
         res = tx.broadcast(url=RPC_API)
         print_output(self.name, self.send, res)
 
