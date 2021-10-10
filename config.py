@@ -3,16 +3,17 @@ from cyberpy import seed_to_privkey, privkey_to_address
 LCD_API = 'http://lcd_api' 
 RPC_API = 'http://rpc_api'
 HERO = 'your hero name'
-MSGS = 50
+CYBERLINKS_IN_TX = 1
+TXS_IN_BLOCK = 5
 
 CHAIN_ID = 'bostrom-testnet-4'
 SYNC_MODE = 'broadcast_tx_sync'
 
 TYPE = {
-    "cyberlinker": 50,
-    "crosslinker": 45,
+    "cyberlinker": 2,
+    "crosslinker": 1,
     "invalid_cyberlinker": 2,
-    "sender": 3
+    "sender": 97
 }
 
 # MAX 8
@@ -44,5 +45,5 @@ CHARACTER = ['cyberlink'] * (TYPE['cyberlinker'] * 100) + \
             # ['withdraw'] * (TYPE['withdrawer'] * 100)
 
 
-if MSGS > 200:
-    MSGS = 200
+if CYBERLINKS_IN_TX > 200:
+    CYBERLINKS_IN_TX = 200

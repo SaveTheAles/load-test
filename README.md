@@ -18,7 +18,8 @@ General info:
 LCD_API = '' # the LCD API endpoint without '/' in the end of string, on port 1317 by default
 RPC_API = '' # the RPC API endpoint without '/' in the end of string, on port 26657 by default
 HERO = '' # your hero moniker
-MSGS = 25 # the amount of links in one transaction (max 25)
+CYBERLINKS_IN_TX = 1 # the amount of links in one transaction
+TXS_IN_BLOCK = 5 # the amount of transactions in a block
 ```
 
 the bot character in percents:
